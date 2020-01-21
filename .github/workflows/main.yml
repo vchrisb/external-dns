@@ -4,7 +4,9 @@ on:
   release:
     types: [published, created, edited]
   push:
-    branches: 'master'
+    branches: 
+      - 'master'
+      - 'temp-release'
     tags: '*'
 
 jobs:
