@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
+        # https://github.com/actions/checkout
+        name: Checkout
+        uses: actions/checkout@v1
+      -
         name: Prepare
         id: prepare
         run: |
@@ -24,16 +28,13 @@ jobs:
           echo ::set-output name=docker_platforms::linux/amd64,linux/arm64
           echo ::set-output name=docker_username::vchrisb
           echo ::set-output name=docker_image::vchrisb/external-dns
+          sed -i'.bak' -e s/-race//g Makefile
       -
         # https://github.com/crazy-max/ghaction-docker-buildx
         name: Set up Docker Buildx
         uses: crazy-max/ghaction-docker-buildx@v1
         with:
           version: latest
-      -
-        # https://github.com/actions/checkout
-        name: Checkout
-        uses: actions/checkout@v1
       -
         name: Docker Login
         env:
